@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/uva-cs3240-f19/project-103-aquae.svg?token=CsP7yWnZDbiHTYp1pqea&branch=master)](https://travis-ci.com/uva-cs3240-f19/project-103-aquae)
 # AQUAE Rideshare
-[Our Heroku URL](http://aquae.herokuapp.com/)
+This app is live on Heroku at this [link](http://aquae.herokuapp.com/)
 
 The AQUAE team (**A**nna, **Q**uincy, **U**ttam, **A**rty, and **E**dward) created a rideshare web application using the Django web framework, with GitHub as our
 source control management, Travis CI to manage our continuous integration, and Heroku as our cloud hosting
