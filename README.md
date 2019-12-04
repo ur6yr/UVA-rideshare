@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/uva-cs3240-f19/project-103-aquae.svg?token=CsP7yWnZDbiHTYp1pqea&branch=master)](https://travis-ci.com/uva-cs3240-f19/project-103-aquae)
+[![Build Status](https://travis-ci.com/ur6yr/UVA-rideshare.svg?branch=master)](https://travis-ci.com/ur6yr/UVA-rideshare)
 # AQUAE Rideshare
 This app is live on Heroku at this [link](http://aquae.herokuapp.com/)
 
