@@ -1,0 +1,74 @@
+{% extends "base4.html" %}
+
+{% block content %}
+<h1>My Drives</h1>
+{% if posts.count > 0%}
+	{% for post in posts %}
+		{%if post.is_current and post.has_endLoc%}
+			<article class="content-section container fixedHeight">
+			    <div class="row">
+				    <div class="article-metadata col-12">
+			            <a class="mr-2" href="/{{post.driver.username}}/info">{{ post.driver.first_name }} {{ post.driver.last_name }}</a>
+				      	<small class="text-muted">{{ post.postedTime }}</small>
+				    </div>
+				    <div class="col-8">
+				        <h2><a class="article-title" href="/{{post.id}}/ridepage">Ride to {{ post.generalDest }}</a></h2>
+					    <p class="article-content">{{ post.content }}</p>
+						<p> Drive Date : {{ post.rideDate }}</p>
+						<p> Start Time : {{ post.rideTime }}</p>
+						<p> Starting Location : {{ post.startAddress }}</p>
+						<p> Destination : {{ post.endAddress }}</p>
+			            <p> Cost : {{ post.cost }}</p>
+	                    <h6>Passengers:</h6>
+						{% if post.riderList.count > 0 %}
+		            			{% for rider in post.riderList.all%}
+		            				<div class="row">
+				            			<div class="col-4"><a href="/{{rider.user.username}}/info">{{ rider.user.full_name }}</a></div>
+				            			<div class="col-2"><a href='/mydrives/remove/{{post.id}}/{{rider.id}}'>Remove</a></div>
+			            			</div>
+			            		{% endfor %}
+			            {% else %}
+			            	None
+	                    {% endif %}
+	                    <div>
+	                    	<a href="/mydrives/delete/{{post.id}}">Delete Ride</a>
+	                	</div>
+	                </div>
+				  	<div class="col-4">
+					  		<h4>Ride Requests</h4>
+					  	<div>
+	                        {% if post.spacesAvailable > 0 %}
+						  	{% for request in post.riderRequests.all%}
+					  			<div class="row border rounded">
+					  				<div class="col-6 align-middle">
+					  					<a  href="/{{request.user.username}}/info">{{request.user.first_name}} {{request.user.last_name}}</a>
+					  				</div>
+					  				<div class="col-3 no-gutters pl-1 pr-1">
+							  			<div class="highlightBox accept buttonDiv noOverFlow" onclick="window.location='/mydrives/+/{{post.id}}/{{request.id}}';">Approve</div>
+							  		</div>
+							  		<div class="col-3 no-gutters pl-1 pr-1">
+							  			<div class="highlightBox reject buttonDiv noOverFlow" onclick="window.location='/mydrives/-/{{post.id}}/{{request.id}}';">Decline</div>
+							  		</div>
+							  		<div class="row">
+						  				<div class="col-6 no-"><p class="font-weight-bold m-0">Pick Up</p>{{request.pickupLoc}}</div>
+						  				<div class="col-6"><p class="font-weight-bold m-0">Drop Off</p>{{request.dropoffLoc}}</div>
+						  				<div class="col-12"><p class="font-weight-bold m-0">Additional Notes</p>{{request.additionalNotes}}</div>
+					  				</div>
+					  			</div>
+						  	{% endfor %}
+	                        {% else %}
+	                        <p>There are no spaces left on this ride</p>
+	                        {% endif %}
+					  	</div>
+				  	</div>
+				</div>
+			</article>
+		{%endif%}
+	{% endfor %}
+{% else %}
+<div class="col-12">
+	<h4>You have no rides</h4>
+</div>
+{% endif %}
+{% endblock content %}
+

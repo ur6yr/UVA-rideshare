@@ -1,0 +1,15 @@
+{% extends "rideapp/base2.html" %}
+{% load crispy_forms_tags %}
+<head>
+</head>
+{% block content %}
+<body>
+	<h2>Join this ride</h2>
+    <form method="post" enctype="multipart/form-data">
+    	{% csrf_token %}
+    	{{riderform|crispy}}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+{{ riderform.media }}
+{% endblock content %}

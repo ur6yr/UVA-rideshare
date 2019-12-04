@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>My Rides</h1>
+{% if posts.count > 0%}
+	{% for post in posts %}
+		{%if post.is_current and post.has_endLoc%}
+			<article class="media content-section">
+			  <div class="media-body">
+			    <div class="article-metadata">
+		            <a class="mr-2" href="/{{post.driver.username}}/info">{{ post.driver.first_name }} {{ post.driver.last_name }}</a>
+			      <small class="text-muted">{{ post.postedTime }}</small>
+			    </div>
+		        <h2><a class="article-title" href="/{{post.id}}/ridepage">Ride to {{ post.generalDest }}</a></h2>
+			    <p class="article-content">{{ post.content }}</p>
+			    	<p> Driver : {{ post.driver }}</p>
+					<p> Drive Date : {{ post.rideDate }}</p>
+					<p> Start Time : {{ post.rideTime }}</p>
+					<p> Starting Location : {{ post.startAddress }}</p>
+					<p> Destination : {{ post.endAddress }}</p>
+		            <p> Cost : {{ post.cost }}</p>
+		            <h3> Riders </h3>
+		            {% for rider in post.riderList.all%}
+		            	<p>{{ rider.user.full_name }}</p>
+			        	{% empty %}
+			            	<p>empty</p>
+		            {% endfor %}
+		            <!--<p> ID : {{ post.id }}</p>-->
+			  </div>
+			</article>
+		{%endif%}
+	{% endfor %}
+{% else %}
+	<div class="col-12">
+		<h4>You have no rides</h4>
+	</div>
+{% endif %}
+{% endblock content %}
+

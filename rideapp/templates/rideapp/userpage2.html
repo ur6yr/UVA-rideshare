@@ -1,0 +1,232 @@
+{% extends "base5.html" %}
+{% load static %}
+{% block content %}
+{% load socialaccount %}
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      float: right;
+    }
+    img {
+        object-fit: cover;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+      /*border-radius: 50%;
+      width: 300px;
+      height: 20s0px;
+      max-width: 300px;
+      max-height: 300px;*/
+      /*height: 40%;
+      width: 40%;
+      float: right;*/
+    }
+    * {
+      box-sizing: border-box;
+    }
+
+    .heading {
+      font-size: 25px;
+      margin-right: 25px;
+    }
+
+    .fa {
+      font-size: 25px;
+    }
+
+    .checked {
+      color: orange;
+    }
+
+    /* Three column layout */
+    .side {
+      float: left;
+      width: 15%;
+      margin-top: 10px;
+    }
+
+    .middle {
+      float: left;
+      width: 70%;
+      margin-top: 10px;
+    }
+
+    /* Place text to the right */
+    .right {
+      text-align: right;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .rat {
+        background-color: #fafafa;
+        /*border: solid;*/
+        padding: 20px 20px 20px 20px;
+        /*margin: 0 auto; /* Center website */
+        max-width: 800px; /* Max width */
+        padding: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        /*float: right;*/
+    }
+
+    .usr {
+        background-color: #fafafa;
+        /*border: solid;*/
+        padding: 20px 20px 20px 20px;
+        /*margin: 0 auto; /* Center website */
+        max-width: 800px; /* Max width */
+        padding: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    #inf {
+        background-color: #fafafa;
+        /*border: solid;*/
+        padding: 20px 20px 20px 20px;
+        /*margin: 0 auto; /* Center website */
+        max-width: 800px; /* Max width */
+        padding: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    /* The bar container */
+    .bar-container {
+      width: 100%;
+      background-color: #f1f1f1;
+      text-align: center;
+      color: white;
+    }
+
+    /* Individual bars */
+    .bar-5 {width: 60%; height: 18px; background-color: #4CAF50;}
+    .bar-4 {width: 30%; height: 18px; background-color: #2196F3;}
+    .bar-3 {width: 10%; height: 18px; background-color: #00bcd4;}
+    .bar-2 {width: 4%; height: 18px; background-color: #ff9800;}
+    .bar-1 {width: 15%; height: 18px; background-color: #f44336;}
+
+    /* Responsive layout - make the columns stack on top of each other instead of next to each other */
+    @media (max-width: 400px) {
+      .side, .middle {
+        width: 100%;
+      }
+      /* Hide the right column on small screens */
+      .right {
+        display: none;
+      }
+    }
+
+</style>
+<h1>{{user_requested.first_name}}'s Profile</h1>
+<div class="usr">
+<div class="card">
+    <img src="{{ user_requested.photo.url}}" alt="No Image" style="width:100%">
+  <!--<h1>{{user_requested.first_name}} {{user_requested.last_name}}</h1>-->
+</div>
+<p></p>
+<p><b>Name:</b> {{ user_requested.first_name }} {{ user_requested.last_name }}<p>
+<p><b>Email:</b> {{ user_requested.email }}<p>
+<p><b>Username:</b> {{ user_requested.username }}<p>
+<p><b>Venmo ID:</b> {{ user_requested.venmo_id }}<p>
+<p><b>Phone number:</b> {{ user_requested.phone_number }}<p>
+</div>
+<div>
+    <p> &emsp; </p>
+</div>
+<div class="rat">
+    <span class="heading">Rating</span>
+    {% for star in filled %}
+    <span class="fa fa-star checked"></span>
+    {%endfor%}
+    {% for star in not_filled %}
+    <span class="fa fa-star"></span>
+    {%endfor%}
+    <p>{{ user_requested.avg_rating }} average based on {{user_requested.count}} review(s)</p>
+    <hr style="border:3px solid #f1f1f1">
+
+    <div class="row">
+      <div class="side">
+        <div>5 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div id="b5" class="bar-5"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div> {{fives}} </div>
+      </div>
+      <div class="side">
+        <div>4 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div id="b4" class="bar-4"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>{{fours}}</div>
+      </div>
+      <div class="side">
+        <div>3 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div id="b3" class="bar-3"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>{{threes}}</div>
+      </div>
+      <div class="side">
+        <div>2 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div id="b2" class="bar-2"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>{{twos}}</div>
+      </div>
+      <div class="side">
+        <div>1 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div id="b1" class="bar-1"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>{{ones}}</div>
+      </div>
+    </div>
+</div>
+<p></p>
+
+<script>
+    var fiv = '{{len_5}}';
+    var fou = '{{len_4}}';
+    var thr = '{{len_3}}';
+    var two = '{{len_2}}';
+    var one = '{{len_1}}';
+</script>
+<script>
+document.getElementById("b5").style.width = fiv;
+document.getElementById("b4").style.width = fou;
+document.getElementById("b3").style.width = thr;
+document.getElementById("b2").style.width = two;
+document.getElementById("b1").style.width = one;
+</script>
+{% endblock %}

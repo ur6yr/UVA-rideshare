@@ -1,0 +1,134 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'rideapp/main.css' %}">
+    <link rel="icon" href="https://pbs.twimg.com/profile_images/469179572659838977/3FRUPVfs.png">
+    <title>AQUAE</title>
+</head>
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <a class="navbar-brand mr-4" href="/">Aquae</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="/about">About</a>
+              <a class="nav-item nav-link" href="{% url 'ride-list' %}">Ride List</a>
+              <!--<img src={% static 'rideapp/logo.png' %}  style="height: 5vh" />-->
+            </div>
+            <div class="navbar-brand navbar-brand-centered"><img src={% static 'rideapp/logo.png' %}  style="height: 5vh" /></div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                <style>
+                    .dropbtn {
+                      background-color: #5f788a;
+                      color: #cbd5db;
+                      padding: 16px;
+                      font-size: 16px;
+                      border: none;
+                      /*min-width: 160px;*/
+                      border-radius: 30%;
+                    }
+
+                    /* The container <div> - needed to position the dropdown content */
+                    .dropdown {
+                      position: relative;
+                      display: inline-block;
+                    }
+
+                    /* Dropdown Content (Hidden by Default) */
+                    .dropdown-content {
+                      display: none;
+                      position: absolute;
+                      background-color: #5f788a;
+                      min-width: 160px;
+                      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                      z-index: 1;
+                      border-style: solid solid solid solid;
+                      border-color: white;
+                    }
+
+                    /* Links inside the dropdown */
+                    .dropdown-content a {
+                      color: black;
+                      padding: 12px 16px;
+                      text-decoration: none;
+                      display: block;
+                    }
+                
+                    .button {
+                      /*font: bold 11px Arial;*/
+                      text-decoration: none;
+                      background-color: #5f788a;
+                      color: #cbd5db;
+                      /*padding: 2px 6px 2px 6px;*/
+                      padding: 16px;
+                      font-size: 16px;
+                      position: relative;
+                      display: inline-block;
+                    }
+
+                    .button:hover {color: #ffffff;}
+                    /* Change color of dropdown links on hover */
+                    .dropdown-content a:hover {background-color: #425460; border: outset;}
+
+                    /* Show the dropdown menu on hover */
+                    .dropdown:hover .dropdown-content {display: block; border-style: solid solid solid solid;}
+
+                    /* Change the background color of the dropdown button when the dropdown content is shown */
+                    .dropdown:hover .dropbtn {background-color: #425460; border: solid; color: white;}
+                </style>
+                <div>
+                <a class="button" href="{% url 'addride' %}">Create Ride</a>
+                </div>
+               <div class="dropdown">
+                   <button class="dropbtn">My Rides</button>
+                   <div class="dropdown-content">
+                       <a class="nav-item nav-link" href="{% url 'myrides' %}">I'm Riding</a>
+                       <a class="nav-item nav-link" href="{% url 'mydrives' %}">I'm Driving</a>
+                       <a class="nav-item nav-link" href="{% url 'myoldrides' %}">My Past Trips</a>
+                   </div>
+                </div>
+               <div>
+                   <!--<a class="button" href="{% url 'profile' %}"><img src={{request.user.photo.url}}  class="rounded-circle" width="30" height="30" /></a>-->
+                   <a class="button" href="{% url 'profile' %}">Profile</a>
+               </div>
+               <div>
+               <a class="button" href="{% url 'logout' %}">Logout</a>
+               </div>
+               {% else %}
+               <a class="nav-item nav-link" href="{% url 'social:begin' 'google-oauth2' %}">Login</a>
+               {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+<main role="main" class="container">
+     <div class="row">
+       <div class="col-md-12">
+         {% block content %}{% endblock %}
+       </div>
+     </div>
+</main>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
+

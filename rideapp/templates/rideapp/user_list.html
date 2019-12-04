@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block content %}
+  <form method="get">
+    <div class="card text-center">
+    <div class="card-header">
+      <h4 style="margin-top: 0">Filter</h4>
+      <div class="row">
+        <div type="date" class="form-group col-sm-4 col-md-6">
+          {{ filter.form.rideDate.label_tag }}
+          {% render_field filter.form.rideDate class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-6">
+          {{ filter.form.rideTime.label_tag }}
+          {% render_field filter.form.rideTime class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-6">
+          {{ filter.form.startAddress.label_tag }}
+          {% render_field filter.form.startAddress class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-6">
+          {{ filter.form.endAddress.label_tag }}
+          {% render_field filter.form.endAddress class="form-control" %}
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-search"></span> Search
+      </button>
+      <a href="/search" class="btn btn-primary">Refresh</a>
+    </div>
+  </div>
+  </form>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Start Location</th>
+        <th>End Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in filter.qs %}
+        {% if user.is_current and user.has_endLoc%}
+          <tr>
+            <td>{{ user.rideDate }}</td>
+            <td>{{ user.rideTime }}</td>
+            <td>{{ user.startAddress }}</td>
+            <td><a href="/{{user.id}}/ridepage">{{ user.endAddress }}</a></td>
+          </tr> 
+        {% endif %}    
+      {% empty %}
+        <tr>
+          <td colspan="5">No data</td>
+        </tr>
+        
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

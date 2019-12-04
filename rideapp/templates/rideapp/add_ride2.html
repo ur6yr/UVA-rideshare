@@ -1,0 +1,29 @@
+<!-- templates/registration/login.html -->
+{% extends "rideapp/base2.html" %}
+{% load mapbox_location_field_tags %}
+{% location_field_includes %}
+{% include_jquery %}
+{% load crispy_forms_tags %}
+<!--{% load socialaccount %}-->
+<head>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
+</head>
+{% block content %}
+<h2>Post a ride</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!--{{ form|crispy}}-->
+        {{ form.rideEndLoc|as_crispy_field }}
+        <div class="form-row">
+             <div class="form-group col-md-6 mb-0">
+               {{ form.spacesAvailable|as_crispy_field }}
+             </div>
+        </div>
+        {{ form.cost|as_crispy_field }}
+        <small><b>Cost must be between $0 and $1000</b></small>
+        {{ form.details|as_crispy_field }}
+        <button type="submit">Submit</button>
+    </form>
+{{ form.media }}
+{% endblock content %}

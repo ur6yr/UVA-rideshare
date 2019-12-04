@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>404</h1>
+<h2>The URL you requested doesn't exist. You probably went somewhere you shouldn't. The problem very rarely could also be caused by there being too many geocoding requests. Either way click below to return to safety.</h2>
+<a class="btn btn-primary" href="{% url 'addride' %}">Go back to creating a ride</a>
+<a class="btn btn-primary" href="/">Go back home</a>
+{% endblock content %}

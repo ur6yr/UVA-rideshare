@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>My Past Trips</h1>
+<div>
+	{% if posts.count > 0%}
+	<h3>Drives</h3>
+	{% for post in posts %}
+		{% if post.in_past and post.driver == user and post.has_endLoc%}
+			<article class="media content-section">
+			  <div class="media-body">
+			    <div class="article-metadata">
+		            <a class="mr-2" href="/{{post.driver.username}}/info">{{ post.driver.first_name }} {{ post.driver.last_name }}</a>
+			      <small class="text-muted">{{ post.postedTime }}</small>
+			    </div>
+		        <h2><a class="article-title" href="/{{post.id}}/ridepage">Ride to {{ post.generalDest }}</a></h2>
+			    <p class="article-content">{{ post.content }}</p>
+			    	<p> Driver : {{ post.driver }}</p>
+					<p> Drive Date : {{ post.rideDate }}</p>
+					<p> Start Time : {{ post.rideTime }}</p>
+					<p> Starting Location : {{ post.startAddress }}</p>
+					<p> Destination : {{ post.endAddress}}</p>
+		            <p> Cost : {{ post.cost }}</p>
+		            <p> Passengers: </p>
+		            {% for rider in post.riderList.all%}
+		            	<li>{{ rider.user.full_name }}</li>
+		            {% endfor %}
+				  	<!--{% if ride.feedback.count > 0 %}
+                            <h6>Suggestions:</h6>
+				  				<p>{{ride.feedback_list}}</p>
+					{% endif %}
+                    <a href='/{{post.id}}/feedback'>Give feedback</a>-->
+			  </div>
+			</article>
+		{%endif%}
+	{% endfor %}
+</div>
+<h3>Rides</h3>
+<div>
+	{% for post in posts %}
+		{% if post.in_past and post.driver != user%}
+			<article class="media content-section">
+			  <div class="media-body">
+			    <div class="article-metadata">
+		            <a class="mr-2" href="/{{post.driver.username}}/info">{{ post.driver.first_name }} {{ post.driver.last_name }}</a>
+			      <small class="text-muted">{{ post.postedTime }}</small>
+			    </div>
+		        <h2><a class="article-title" href="/{{post.id}}/ridepage">Ride to {{ post.generalDest }}</a></h2>
+			    <p class="article-content">{{ post.content }}</p>
+			    	<p> Driver : {{ post.driver }}</p>
+					<p> Drive Date : {{ post.rideDate }}</p>
+					<p> Start Time : {{ post.rideTime }}</p>
+					<p> Starting Location : {{ post.startAddress }}</p>
+					<p> Destination : {{ post.endAddress }}</p>
+		            <p> Cost : {{ post.cost }}</p>
+		            <p> Passengers: <p>
+		            {% for rider in post.riderList.all%}
+		            	<li>{{ rider.user.full_name }}</li>
+		            {% endfor %}
+                    <a href='/{{post.id}}/feedback'>Give feedback</a>
+			  </div>
+			</article>
+		{%endif%}
+	{% endfor %}
+</div>
+{% else %}
+<h4>You have no trips<h4>
+{% endif %}
+{% endblock content %}
+

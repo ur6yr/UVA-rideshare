@@ -1,0 +1,69 @@
+{% extends "base3.html" %}
+{% load static %}
+{% block content %}
+<head>
+    <!-- Start of Async Drift Code -->
+      <script>
+      "use strict";
+
+      !function() {
+        var t = window.driftt = window.drift = window.driftt || [];
+        if (!t.init) {
+          if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
+          t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
+          t.factory = function(e) {
+            return function() {
+              var n = Array.prototype.slice.call(arguments);
+              return n.unshift(e), t.push(n), t;
+            };
+          }, t.methods.forEach(function(e) {
+            t[e] = t.factory(e);
+          }), t.load = function(t) {
+            var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
+            o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
+            var i = document.getElementsByTagName("script")[0];
+            i.parentNode.insertBefore(o, i);
+          };
+        }
+      }();
+      drift.SNIPPET_VERSION = '0.3.1';
+      drift.load('myn2i5tzr7ii');
+      </script>
+</head>
+<style>
+    #videoBG {
+        position:fixed;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+    @media (min-aspect-ratio: 16/9) {
+        #videoBG {
+            width:100%;
+            height: auto;
+        }
+    }
+    @media (max-aspect-ratio: 16/9) {
+        #videoBG {
+            width:auto;
+            height: 100%;
+        }
+    }
+    @media (max-width: 767px) {
+        #videoBG {
+            display: none;
+        }
+    }
+</style>
+<p> &nbsp; </p>
+<p> &nbsp; </p>
+<p> &nbsp; </p>
+<p> &nbsp; </p>
+<p> &nbsp; </p>
+<div>
+<p style="font-size:3vw;color:#F84C1E;width:1100px;margin: 0 auto;text-align:center;vertical-align: middle;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">Welcome to AQUAE’s UVA Rideshare! Click Ridelist or login to get started</p>
+</div>
+<video id="videoBG" autoplay muted loop>
+    <source src={% static 'rideapp/cars.mp4' %} type="video/mp4">
+</video>
+{% endblock %}

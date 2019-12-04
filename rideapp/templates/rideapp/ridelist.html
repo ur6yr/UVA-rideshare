@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+<head>
+    <!-- Start of Async Drift Code -->
+         <script>
+         "use strict";
+
+         !function() {
+           var t = window.driftt = window.drift = window.driftt || [];
+           if (!t.init) {
+             if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
+             t.invoked = !0, t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
+             t.factory = function(e) {
+               return function() {
+                 var n = Array.prototype.slice.call(arguments);
+                 return n.unshift(e), t.push(n), t;
+               };
+             }, t.methods.forEach(function(e) {
+               t[e] = t.factory(e);
+             }), t.load = function(t) {
+               var e = 3e5, n = Math.ceil(new Date() / e) * e, o = document.createElement("script");
+               o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js";
+               var i = document.getElementsByTagName("script")[0];
+               i.parentNode.insertBefore(o, i);
+             };
+           }
+         }();
+         drift.SNIPPET_VERSION = '0.3.1';
+         drift.load('myn2i5tzr7ii');
+         </script>
+</head>
+<style>
+    #butt{
+        float: left;
+    }
+</style>
+<div id="butt" >
+    <a href="/search" class="btn btn-primary">Search for rides</a>
+</div>
+<p> &emsp; </p>
+{% for post in posts %}
+	{% if post.is_current and post.has_space and post.has_endLoc%}
+		<article class="media content-section">
+		  <div class="media-body">
+		    <div class="article-metadata">
+	            <a class="mr-2" href="/{{post.driver.username}}/info">{{ post.driver.first_name }} {{ post.driver.last_name }}</a>
+		      <small class="text-muted">{{ post.postedTime }}</small>
+		    </div>
+	        <h2><a class="article-title" href="/{{post.id}}/ridepage">Ride to {{ post.generalDest}}</a></h2>
+		    <p class="article-content">{{ post.content }}</p>
+				<p><b> Drive Date:</b> {{ post.rideDate }}</p>
+				<p><b> Start Time:</b> {{ post.rideTime }}</p>
+				<p><b> Ride departs from:</b> {{ post.startAddress }}</p>
+				<p><b> Headed towards:</b> {{ post.endAddress }}</p>
+	            <p><b> Cost:</b> {{ post.cost }}</p>
+		  </div>
+		</article>
+	{%endif%}
+{% endfor %}
+{% endblock content %}
+

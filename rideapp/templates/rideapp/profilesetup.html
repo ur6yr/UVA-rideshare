@@ -1,0 +1,17 @@
+<!-- templates/registration/login.html -->
+{% extends "base.html" %}
+<!--{% load socialaccount %}-->
+{% load crispy_forms_tags %}
+{% block content %}
+<h2>Finish setting up your profile</h2>
+<p>Please provide a phone number. Functionality such as receiving text messages will not work if the phone number is invalid. You can add a profile photo and your Venmo ID on the profile page if you wish.</p>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="form-row">
+       <div class="form-group col-md-6 mb-0">
+         {{ form.phone_number|as_crispy_field }}
+       </div>
+  </div>
+  <button type="submit">Submit</button>
+</form>
+{% endblock content %}

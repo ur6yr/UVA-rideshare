@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+{% load socialaccount %}
+<h1>{{user_requested.first_name}}'s Profile</h1>
+<style>
+    img {
+      border-radius: 50%;
+      height: 40%;
+      width: 40%;
+      float: right;
+    }
+</style>
+<p><img src="{{ user_requested.photo.url}}" alt="{{ user_requested.username }}"><p>
+<p>Name: {{ user_requested.first_name }} {{ user_requested.last_name }}<p>
+<p>Email: {{ user_requested.email }}<p>
+<p>Username: {{ user_requested.username }}<p>
+<p>Nickname: {{ user_requested.nickname }}<p>
+<p>Phone number: {{ user_requested.phone_number }}<p>
+<p>Rating : {{ user_requested.avg_rating }}<p>
+{% endblock %}

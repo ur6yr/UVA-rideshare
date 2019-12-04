@@ -1,0 +1,46 @@
+.horizontalSpan
+{
+	width: 70vw;
+}
+.highlightBox
+{
+	background-color: gray 
+}
+.highlightBox:hover
+{
+	background-color:darkgray; 
+}
+.accept
+{
+	background-color: green;
+}
+.reject
+{
+	background-color: red;
+}
+.buttonDiv
+{
+	padding: 6px;
+	margin: 1px;
+	border-radius: 5px;
+}
+.fixedHeight
+{
+	max-height: 35vh;
+	overflow: auto;
+}
+.someColor
+{
+	background: #8aa9bf;
+}
+.noOverFlow
+{
+	overflow: hidden;
+}
+.fixedHeight::-webkit-scrollbar-thumb
+{
+	background: #a0a0a0;
+	border-radius: 4px;
+}
+
+
